@@ -1,10 +1,10 @@
-# SMEx_BiliSupport
+# SMEx_KuwoSupport
 
-[SimMusic扩展]适用于 SimMusic 的 Bilibili 媒体源 支持扩展
+[SimMusic扩展]适用于 SimMusic 的 酷我音乐(TME) 媒体源 支持扩展
 
 ## 扩展截图
 
-![{F2D9A795-AC20-4054-96A4-2B41DC9C90AA}](https://github.com/user-attachments/assets/22882b70-f2eb-43df-a397-9fec868a8589)
+![image](https://github.com/user-attachments/assets/0a32fe12-12c5-4b6e-a166-818beab68ca3)
 
 ## 安装教程
 
@@ -19,12 +19,11 @@
 
 ## 扩展说明
 
-1. 本扩展中「搜索」与「字幕获取」请求因需要验证Cookie，中途需经过RisServer，但请放心，您的信息不会因此泄漏
-2. 若扩展存在Bug请及时[提交](https://github.com/PYLXU/SMEx_BiliSupport/issues)，非常感谢
-3. 本扩展中「下载」功能存在问题，暂时无法正常下载，感谢理解
-4. 「0.1.0」版本缓存功能尚未加入，计划一周内加入
+1. 本扩展接口使用了来自 Limeasy 易于使用的接口
+2. 暂不支持歌单功能
 
 ## 特别鸣谢
 
 - SimMusic为本扩展提供开发平台
-- 本扩展基于SimMusic官方提供的「本地音频支持」修改而来
+- 父扩展(PYLXU/SMEx_biliSupport) 基于SimMusic官方提供的「本地音频支持」修改而来
+- 本扩展基于 PYLXU/SMEx_biliSupport 修改而来
