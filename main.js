@@ -33,7 +33,7 @@ SettingsPage.data.push(
 			["standard", "标准音质 (128 kbps)"],
 			["exhigh", "高品质 (320 kbps)"],
 			["lossless", "无损压缩 (FLAC)"],
-			["hires", "高解析度音频 (Hi-Res, ~2000 kbps)"]
+			// ["hires", "高解析度音频 (Hi-Res, ~2000 kbps)"] // 酷我音乐的高解析度音频需要会员权限，暂时不支持
 		],
 		configItem: "ext.kuwo.musicQuality"
 	},
@@ -337,8 +337,8 @@ ExtensionConfig.kuwo.search = async (keyword, _page) => {
 
 	return {
 		files: resultArray,
-		hasMore: true,
-		menuItems: [DownloadController.getMenuItems()]
+		menu: [DownloadController.getMenuItems()],
+		hasMore: true
 	};
 }
 
