@@ -236,7 +236,7 @@ ExtensionConfig.kuwo.player = {
 		const cacheFilePath = path.join(tempDir, `${id}.mp3`);
 
 		try {
-			await fs.access(cacheFilePath);
+			await fs.promises.access(cacheFilePath);
 			return `file://${cacheFilePath}`;
 		} catch { }
 
