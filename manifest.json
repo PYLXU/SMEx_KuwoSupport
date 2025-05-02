@@ -1,0 +1,10 @@
+{
+  "packageId": "kuwo",
+  "extName": "[音源扩展] 酷我音乐",
+  "uiName": "酷我",
+  "version": "0.1.0",
+  "entries": [
+    "main.js"
+  ]
+}
+  
