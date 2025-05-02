@@ -5,6 +5,9 @@
 ## 扩展截图
 
 ![image](https://github.com/user-attachments/assets/0a32fe12-12c5-4b6e-a166-818beab68ca3)
+![image](https://github.com/user-attachments/assets/fda82f04-d1ca-45e3-94e7-ed554aff4125)
+![0bdc679a2f3f2e5583999e45ff33031f](https://github.com/user-attachments/assets/4d722dce-8c17-493f-b59a-de4b31869b13)
+
 
 ## 安装教程
 
