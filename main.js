@@ -213,8 +213,20 @@ SettingsPage.data.push(
 // 这个函数用于读取音乐元数据，不管你是本地还是在线，无所谓你咋获取，最后都调callback(data)就行。
 // 如果是在线的用fetch就更好做，直接修改我musicmetadata的promise就得
 //【注意：读取失败可以返回null，各字段值可以没有】
+
+let tempMetadata = {};
+
 ExtensionConfig.kuwo.readMetadata = async (file) => {
 	const id = file.replace("kuwo:", "");
+	if (tempMetadata[id]) {
+		return {
+			title: tempMetadata[id].title,
+			artist: tempMetadata[id].artist,
+			album: tempMetadata[id].album,
+			time: tempMetadata[id].time,
+			cover: tempMetadata[id].cover
+		};
+	}
 	const response = await fetch(`https://api.limeasy.cn/kwmpro/info/?key=${cacheSongName.get(id)}&id=${id}`);
 	const metadata = await response.json();
 	return {
@@ -328,19 +340,38 @@ ExtensionConfig.kuwo.player = {
 /**************** 歌曲搜索 ****************/
 ExtensionConfig.kuwo.search = async (keyword, _page) => {
 	let resultArray = [];
-	const response = await fetch(`https://api.limeasy.cn/kwmpro/search/?key=${encodeURI(keyword)}&p=${_page}&n=${config.getItem("ext.kuwo.maxSearch")}`);
+	tempMetadata = {};
+	const response = await fetch(`https://search.kuwo.cn/r.s?all=${encodeURIComponent(keyword)}&pn=${_page}&rn=${config.getItem("ext.kuwo.maxSearch")}&vipver=100&ft=music&encoding=utf8&rformat=json&vermerge=1&mobi=1`);
 	const result = await response.json();
+
 	result.abslist.forEach(item => {
-		cacheSongName.save(item.songid, item.artist + " " + item.name);
-		resultArray.push("kuwo:" + item.songid);
+		item.MUSICRID = item.MUSICRID.replace("MUSIC_", "");
+		const metadata = {
+			title: item.SONGNAME,
+			artist: item.ARTIST,
+			album: item.ALBUM,
+			time: item.DURATION,
+			cover: (item.web_albumpic_short) 
+				? `https://img3.kuwo.cn/star/albumcover/${item.web_albumpic_short.replace("120/", "256/")}` 
+				: (item.web_artistpic_short 
+					? `https://star.kuwo.cn/star/starheads/${item.web_artistpic_short.replace("120/", "500/")}` 
+					: '')
+		};
+
+		// console.log(metadata.cover);
+
+		tempMetadata[item.MUSICRID] = metadata;
+
+		cacheSongName.save(item.MUSICRID, `${metadata.artist} ${metadata.title}`);
+		resultArray.push("kuwo:" + item.MUSICRID);
 	});
 
 	return {
 		files: resultArray,
 		menu: [DownloadController.getMenuItems()],
-		hasMore: true
+		hasMore: result.PN * result.RN < result.TOTAL
 	};
-}
+};
 
 const cacheSongName = {
 	// 保存歌曲名称到 localStorage
