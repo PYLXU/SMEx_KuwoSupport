@@ -337,7 +337,8 @@ ExtensionConfig.kuwo.search = async (keyword, _page) => {
 
 	return {
 		files: resultArray,
-		hasMore: true
+		hasMore: true,
+		menuItems: [DownloadController.getMenuItems()]
 	};
 }
 
