@@ -219,23 +219,26 @@ let tempMetadata = {};
 ExtensionConfig.kuwo.readMetadata = async (file) => {
 	const id = file.replace("kuwo:", "");
 	if (tempMetadata[id]) {
+		const title = tempMetadata[id].title;
+		const processedTitle = title.includes('-') ? title.split('-').slice(0, -1).join('-').trim() : title;
 		return {
-			title: tempMetadata[id].title,
+			title: processedTitle,
 			artist: tempMetadata[id].artist,
 			album: tempMetadata[id].album,
 			time: tempMetadata[id].time,
 			cover: tempMetadata[id].cover
 		};
 	}
-	const response = await fetch(`https://api.limeasy.cn/kwmpro/info/?key=${cacheSongName.get(id)}&id=${id}`);
-	const metadata = await response.json();
-	return {
-		title: metadata.name,
-		artist: metadata.artist,
-		album: metadata.album,
-		time: metadata.duration,
-		cover: metadata.pic
-	};
+	// const response = await fetch(`https://api.limeasy.cn/kwmpro/info/?key=${cacheSongName.get(id)}&id=${id}`);
+	// const metadata = await response.json();
+	// return {
+	// 	title: metadata.name,
+	// 	artist: metadata.artist,
+	// 	album: metadata.album,
+	// 	time: metadata.duration,
+	// 	cover: metadata.pic
+	// };
+	return {};
 };
 
 /**************** 歌曲播放 ****************/
@@ -362,7 +365,7 @@ ExtensionConfig.kuwo.search = async (keyword, _page) => {
 
 		tempMetadata[item.MUSICRID] = metadata;
 
-		cacheSongName.save(item.MUSICRID, `${metadata.artist} ${metadata.title}`);
+		// cacheSongName.save(item.MUSICRID, `${metadata.artist} ${metadata.title}`);
 		resultArray.push("kuwo:" + item.MUSICRID);
 	});
 
